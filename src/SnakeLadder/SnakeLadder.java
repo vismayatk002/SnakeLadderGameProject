@@ -1,6 +1,6 @@
 package SnakeLadder;
 
-import java.util.*;
+//import java.util.*;
 public class SnakeLadder {
 	
 	final int NO_PLAY = 0;
@@ -14,13 +14,15 @@ public class SnakeLadder {
 	// Roll the dice
 	public int rollDice() {		
 		int diceNumber = (int)(Math.random() * (max - min +1) + min);
-	    System.out.println("Dies number : " + diceNumber);
+	    System.out.println("Dice number : " + diceNumber);
 	    return diceNumber;
 	}
 	
 	// Function to get the options 
-	public int getOption(int diceResult) {
+	public int playGame(int currentPosition) {
 		
+		// Get dice number
+		int diceResult = rollDice();
 		int checkOption = (int)(Math.random() * 10) % 3;
 		
 	    switch(checkOption){
@@ -29,49 +31,58 @@ public class SnakeLadder {
 	        break;
 	        case LADDER : 
 	            System.out.println("Option : Ladder ");
-	            position += diceResult;
-	            if(position > winningPosition) {
-	            	position -= diceResult;
+	            currentPosition += diceResult;
+	            
+	            //play game again when not in winningPosition
+	            if(currentPosition != winningPosition) {
+	            	currentPosition = playGame(currentPosition);
+	            }
+	            //stay current position when it is reached greater than 100
+	            if(currentPosition > winningPosition) {
+	            	currentPosition -= diceResult;
 	            }
 	        break;
 	        case SNAKE : 
 	            System.out.println("Option : Snake ");
-	            position -= diceResult;
+	            currentPosition -= diceResult;
 	         // Reset position value to 0 when it is negative
-                if(position < 0){
-                    position = 0;
+                if(currentPosition < 0){
+                	currentPosition = 0;
                 }
              break; 
         }
 	    
-	    return position;
+	    return currentPosition;
 	}
 	
 	public static void main(String[] args) {
 		
 		//create object for class SnakeLadder 
 		SnakeLadder game = new SnakeLadder();
-		Scanner sc = new Scanner(System.in);
 		int rollCount = 0;
+		int playerOnePosition = 0;
+		int playerTwoPosition = 0;
 			
-		while(position < winningPosition ){
-			System.out.print("Press 1 for Roll the Dice :");
-			int number = sc.nextInt();
-			if(number == 1){
-				
-			    // Get dice number
-				int diceResult = game.rollDice();
-				
-			    // Get options 
-				int currentPosition = game.getOption(diceResult);
-				System.out.println("Current position : " + currentPosition + "\n");
+		while(playerOnePosition < winningPosition && playerTwoPosition < winningPosition ){
+			// Get options and returns position value
+			System.out.println("\nPlayer1 Roll the Dice ");
+			playerOnePosition = game.playGame( playerOnePosition);
+			System.out.println("Player1 Position : " + playerOnePosition);
+			//player2 have chance only if player1 not won
+			if(playerOnePosition != winningPosition) {
+				System.out.println("\nPlayer2 Roll the Dice ");
+				playerTwoPosition = game.playGame( playerTwoPosition);
+				System.out.println("Player2 Position : " + playerTwoPosition);
 			}
-			else{
-			    System.out.println("Invalid Input");
-			}
-			rollCount++;
 		}
-		 System.out.println("You won the game !! ");
-		 System.out.println("You rolled dies "+ rollCount +" times.");
+		if(playerOnePosition == winningPosition) {
+			 
+			System.out.println("\nPlayer1 won the game !! ");
+		}
+		else {
+			
+			System.out.println("\nPlayer2 won the game !! ");
+		}
 	}
+		
 }
