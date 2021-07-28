@@ -52,6 +52,7 @@ public class SnakeLadder {
 		//create object for class SnakeLadder 
 		SnakeLadder game = new SnakeLadder();
 		Scanner sc = new Scanner(System.in);
+		int rollCount = 0;
 			
 		while(position < winningPosition ){
 			System.out.print("Press 1 for Roll the Dice :");
@@ -68,7 +69,9 @@ public class SnakeLadder {
 			else{
 			    System.out.println("Invalid Input");
 			}
+			rollCount++;
 		}
-		 System.out.println("You won the game !! ");   
+		 System.out.println("You won the game !! ");
+		 System.out.println("You rolled dies "+ rollCount +" times.");
 	}
 }
