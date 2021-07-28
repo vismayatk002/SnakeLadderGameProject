@@ -9,6 +9,7 @@ public class SnakeLadder {
 	int min = 1;
 	int max = 6;
 	static int position = 0;
+	static int winningPosition = 5;
 	
 	// Roll the dice
 	public int rollDice() {		
@@ -29,6 +30,9 @@ public class SnakeLadder {
 	        case LADDER : 
 	            System.out.println("Option : Ladder ");
 	            position += diceResult;
+	            if(position > winningPosition) {
+	            	position -= diceResult;
+	            }
 	        break;
 	        case SNAKE : 
 	            System.out.println("Option : Snake ");
@@ -49,7 +53,7 @@ public class SnakeLadder {
 		SnakeLadder game = new SnakeLadder();
 		Scanner sc = new Scanner(System.in);
 			
-		while(position <= 100 ){
+		while(position < winningPosition ){
 			System.out.print("Press 1 for Roll the Dice :");
 			int number = sc.nextInt();
 			if(number == 1){
