@@ -9,7 +9,7 @@ public class SnakeLadder {
 	int min = 1;
 	int max = 6;
 	static int position = 0;
-	static int winningPosition = 5;
+	static int winningPosition = 100;
 	
 	// Roll the dice
 	public int rollDice() {		
