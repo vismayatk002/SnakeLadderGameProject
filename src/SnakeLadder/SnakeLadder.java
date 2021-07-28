@@ -53,7 +53,8 @@ public class SnakeLadder {
 		SnakeLadder game = new SnakeLadder();
 		Scanner sc = new Scanner(System.in);
 		int rollCount = 0;
-			
+		int currentPosition = 0;
+		//int positionArr[] = new int[1000];
 		while(position < winningPosition ){
 			System.out.print("Press 1 for Roll the Dice :");
 			int number = sc.nextInt();
@@ -63,15 +64,17 @@ public class SnakeLadder {
 				int diceResult = game.rollDice();
 				
 			    // Get options 
-				int currentPosition = game.getOption(diceResult);
+				currentPosition = game.getOption(diceResult);
 				System.out.println("Current position : " + currentPosition + "\n");
 			}
 			else{
 			    System.out.println("Invalid Input");
 			}
+			//positionArr[rollCount] = currentPosition;
 			rollCount++;
 		}
 		 System.out.println("You won the game !! ");
 		 System.out.println("You rolled dies "+ rollCount +" times.");
+		 //System.out.println(Arrays.toString(positionArr));  
 	}
 }
